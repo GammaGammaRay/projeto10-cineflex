@@ -34,6 +34,8 @@
     
     - O servidor responde a esta requisição com um *array* de objetos que representam os filmes:
       
+      <details>Hi</details>
+      
       ```jsx
       [
           {
@@ -505,13 +507,13 @@
   
   [projeto-template-cineflex.zip](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/352a95cc-b0ac-4edf-adcf-e39c7383e2d9/projeto-template-cineflex.zip)
   
-  - [ ] Baixe o template para o seu computador e descompacte a pasta
+  - [x] Baixe o template para o seu computador e descompacte a pasta
   
-  - [ ] Entre na pasta do projeto, abra o terminal e dê o comando `npm i`
+  - [x] Entre na pasta do projeto, abra o terminal e dê o comando `npm i`
     
     - Isso deverá criar uma pasta `node_modules` para o projeto
   
-  - [ ] Dê um `git init` e suba o projeto para o seu repositório do git hub
+  - [x] Dê um `git init` e suba o projeto para o seu repositório do git hub
     
     - Não sabe como fazer isso? Clique aqui!
       
@@ -529,26 +531,26 @@
       git push -u origin main
       ```
   
-  - [ ] Para começar a codar, rode no terminal o comando `npm run dev.`
+  - [x] Para começar a codar, rode no terminal o comando `npm run dev.`
 
 ## ✅ Requisitos
 
 - Geral
   
-  - [ ] Manipule o HTML usando somente React (sem usar o document nem bibliotecas como jQuery).
-  - [ ] Seu projeto deverá ser desenvolvido utilizando Git e GitHub.
+  - [x] Manipule o HTML usando somente React (sem usar o document nem bibliotecas como jQuery).
+  - [x] Seu projeto deverá ser desenvolvido utilizando Git e GitHub.
   - [ ] **A cada requisito implementado** faça um commit com uma mensagem descritiva do que você evoluiu. Caso queira dividir um requisito em vários commits, não há problema. Mas evite colocar mais de um requisito no mesmo commit.
-  - [ ] O uso de styled-components é obrigatório.
-  - [ ] Não é permitido o uso de context.
+  - [x] O uso de styled-components é obrigatório.
+  - [x] Não é permitido o uso de context.
 
 - Versionamento
   
-  - [ ] Versionamento usando Git é obrigatório, crie um **repositório público** no seu perfil do GitHub.
-  - [ ] Faça *commits* a cada funcionalidade implementada.
+  - [x] Versionamento usando Git é obrigatório, crie um **repositório público** no seu perfil do GitHub.
+  - [x] Faça *commits* a cada funcionalidade implementada.
 
 - *Layout*
   
-  - [ ] Vocês já receberam o layout das páginas com todos os styled-components necessários feitos. Baixe o arquivo em Recursos > Layout pronto
+  - [x] Vocês já receberam o layout das páginas com todos os styled-components necessários feitos. Baixe o arquivo em Recursos > Layout pronto
     - A ideia é aproveitar o CSS, não a lógica (é tudo estático) nem organização dos arquivos (você deve criar componentes conforme achar adequado)
     - Não esqueça de colocar os `data-test`!
   - [ ] O *layout* é apenas para mobile, seguindo figma fornecido (não é necessário implementar um layout para desktop).
