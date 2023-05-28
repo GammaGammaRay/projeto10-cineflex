@@ -1,16 +1,16 @@
 import React from "react";
 import styled from "styled-components";
 
-function Footer(movie) {
+function Footer({poster, title}) {
   return (<FooterDiv>
     <div>
           <img
-            src="https://br.web.img2.acsta.net/pictures/22/05/16/17/59/5165498.jpg"
+            src={poster}
             alt="poster"
           />
         </div>
         <div>
-          <p>Tudo em todo lugar ao mesmo tempo</p>
+          <p>{title}</p>
         </div>
   </FooterDiv>);
 }
@@ -29,6 +29,7 @@ const FooterDiv = styled.div`
   font-size: 20px;
   position: fixed;
   bottom: 0;
+  font-family: 'Roboto', sans-serif;
 
   div:nth-child(1) {
     box-shadow: 0px 2px 4px 2px #0000001a;

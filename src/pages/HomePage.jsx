@@ -6,7 +6,9 @@ import axios from "axios";
 export default function HomePage() {
   const [movies, setMovies] = useState([]);
 
-  useEffect(getMovies, []);
+  useEffect(() => {
+    getMovies();
+  }, []);
 
   function getMovies() {
     const moviesURL = "https://mock-api.driven.com.br/api/v8/cineflex/movies";
@@ -34,7 +36,7 @@ export default function HomePage() {
       </PageTitle>
       <ListContainer>
         {movies.map((movie) => (
-          <Link  to={`/sessions/${movie.id}`} key={movie.id}>
+          <Link to={`/sessions/${movie.id}`} key={movie.id}>
             <MovieItem>
               <img src={movie.posterURL} alt={movie.title} />
             </MovieItem>
@@ -46,6 +48,7 @@ export default function HomePage() {
 }
 
 const PageContainer = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
