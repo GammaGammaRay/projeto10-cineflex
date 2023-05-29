@@ -7,7 +7,7 @@ import Seats from "../components/Seats";
 export default function SeatsPage() {
   const [seats, setSeats] = useState([]);
   const [selectedSeats, setSelectedSeats] = useState([]);
-  const [selectedSeatNumbers, setSelectedSeatNumbers] = useState([])
+  const [seatNumbers, setSeatNumbers] = useState([])
   const [buyerCpf, setBuyerCpf] = useState(null);
   const [buyerName, setBuyerName] = useState(null);
   // const [success, setSuccess] = useState(false);
@@ -35,23 +35,26 @@ export default function SeatsPage() {
       });
   }
 
+
+
+
   // POST SEATS
   function postData() {
     const data = {
-      ids: { selectedSeats },
-      name: { buyerName },
-      cpf: { buyerCpf },
+      ids: selectedSeats, 
+      name: buyerName,
+      cpf: buyerCpf,
     };
-
+  
     console.log(data);
-
-    const response = axios.post(
-      "https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many",
-      data
-    );
-
-    response.then(reservationSuccess);
-    response.catch(reservationError);
+  
+    axios
+      .post(
+        "https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many",
+        data
+      )
+      .then(reservationSuccess)
+      .catch(reservationError);
   }
 
   function reservationSuccess() {
@@ -97,8 +100,8 @@ export default function SeatsPage() {
           seats={seats.seats}
           selectedSeats={selectedSeats}
           setSelectedSeats={setSelectedSeats}
-          selectedSeatNumbers={selectedSeatNumbers}
-          setSelectedSeatNumbers={setSelectedSeatNumbers}
+          seatNumbers={seatNumbers}
+          setSeatNumbers={setSeatNumbers}
         />
       )}
       <FormContainer>

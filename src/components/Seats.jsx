@@ -1,13 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 
-function Seat({ name, id, isAvailable, isSelected, setSelectedSeats }) {
+function Seat({
+  name,
+  id,
+  isAvailable,
+  isSelected,
+  setSelectedSeats,
+}) {
   const handleSeatClick = () => {
-    if (isAvailable) {
-      setSelectedSeats(id);
+    if(!isAvailable) {
+      alert("Esse assento não está disponível")
     }
-    if (isSelected) {
-      !isSelected;
+    else {
+      setSelectedSeats(id, name);
     }
   };
 
@@ -24,19 +30,31 @@ function Seat({ name, id, isAvailable, isSelected, setSelectedSeats }) {
 
 function Seats({
   seats,
-  name,
   selectedSeats,
   setSelectedSeats,
-  setSelectedSeatNumbers,
-  selectedSeatNumbers,
+  setSeatNumbers,
+  seatNumbers,
 }) {
-  const handleSeatSelection = (seatId) => {
+  useEffect(() => {
+    console.log(seatNumbers);
+  }, [seatNumbers]);
+
+  useEffect(() => {
+    setSeatNumbers([]);
+  }, []);
+
+  const handleSeatSelection = (seatId, seatNumber) => {
     if (selectedSeats.includes(seatId)) {
       setSelectedSeats(selectedSeats.filter((id) => id !== seatId));
+      setSeatNumbers((seatNumbers) =>
+        seatNumbers.filter((name) => name !== seatNumber)
+      );
     } else {
       setSelectedSeats([...selectedSeats, seatId]);
+      setSeatNumbers([...seatNumbers, seatNumber]);
     }
   };
+
 
   return (
     <>
@@ -49,7 +67,6 @@ function Seats({
             isAvailable={isAvailable}
             setSelectedSeats={handleSeatSelection}
             isSelected={selectedSeats.includes(id)}
-            setSelectedSeatNumbers={setSelectedSeatNumbers}
           />
         ))}
       </SeatsContainer>
