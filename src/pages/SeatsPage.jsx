@@ -92,7 +92,7 @@ export default function SeatsPage() {
       return;
     }
     if (!isValidCPF(buyerCpf)) {
-      alert("Por favor digite seu cpf, usando o formato xxx.xxx.xxx-xx");
+      alert("Por favor digite seu cpf de 11 dígitos");
       return;
     } else {
       postData();
@@ -153,9 +153,9 @@ function isValidName(name) {
   return pattern.test(name);
 }
 
-function isValidCPF(cpf) {
-  const pattern = /^\d{3}\.\d{3}\.\d{3}-\d{2}$/;
-  return pattern.test(cpf);
+function isValidCPF(number) {
+  const regex = /^\d{11}$/;
+  return regex.test(number);
 }
 
 // STYLED COMPONENTS
