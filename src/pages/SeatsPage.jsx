@@ -58,7 +58,7 @@ export default function SeatsPage() {
   function reservationSuccess() {
     console.log("Reservation Successful");
     console.log({ seatNumbers });
-    navigate("/success", {
+    navigate("/sucesso", {
       state: {
         name: buyerName,
         cpf: buyerCpf,
