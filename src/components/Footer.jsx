@@ -22,7 +22,6 @@ const FooterDiv = styled.div`
   background-color: #c3cfd9;
 
   display: flex;
-  justify-content: center;
   flex-direction: row;
   align-items: center;
   font-size: 26px;

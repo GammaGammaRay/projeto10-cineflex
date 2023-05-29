@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { BrowserRouter, Link, Routes, Route } from "react-router-dom";
 import styled from "styled-components";
 import HomePage from "./pages/HomePage";
@@ -12,7 +13,10 @@ export default function App() {
 
   return (
     <BrowserRouter>
-      <NavContainer>CINEFLEX</NavContainer>
+      <NavContainer>
+        <BackButton/>
+        <NavTitle>CINEFLEX</NavTitle>
+      </NavContainer>
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/sessions/:id" element={<SessionsPage />} />
@@ -23,10 +27,22 @@ export default function App() {
   );
 }
 
+const BackButton = () => {
+  const navigate = useNavigate();
+
+  const handleBack = () => {
+    navigate("/");
+    location.state = null;
+  };
+
+  return <BackButtonContainer data-test="go-home-header-btn" onClick={handleBack}>◄</BackButtonContainer>;
+};
+
 const NavContainer = styled.div`
   width: 100%;
   height: 70px;
   display: flex;
+  flex-direction: row;
   z-index: 10;
   align-items: center;
   justify-content: center;
@@ -41,4 +57,15 @@ const NavContainer = styled.div`
     text-decoration: none;
     color: #e8833a;
   }
+`;
+
+const BackButtonContainer = styled.div`
+  font-size: 30px;
+  font-weight: 700;
+  position: absolute;
+  left: 20px;
+`;
+
+const NavTitle = styled.div`
+  color: #e8833a;
 `;
