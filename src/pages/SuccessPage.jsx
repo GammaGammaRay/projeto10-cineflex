@@ -4,9 +4,9 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 export default function SuccessPage() {
   const location = useLocation();
-  const navigate = useNavigate();
   const { name, cpf, title, time, date, reservedSeats } = location.state;
 
+  const navigate = useNavigate();
   const refresh = () => {
     navigate("/");
     location.state = null;
@@ -35,7 +35,6 @@ export default function SuccessPage() {
         {reservedSeats.map((seat) => (
           <p key={seat}>Assento {seat}</p>
         ))}
-        
       </TextContainer>
 
       <TextContainer data-test="client-info">
@@ -43,12 +42,20 @@ export default function SuccessPage() {
           <p>Comprador</p>
         </strong>
         <p>Nome: {name}</p>
-        <p>CPF: {cpf}</p>
+        <p>CPF: {formatCPF(cpf)}</p>
       </TextContainer>
 
-      <button onClick={refresh} data-test="go-home-btn">Voltar para Home</button>
+      <button onClick={refresh} data-test="go-home-btn">
+        Voltar para Home
+      </button>
     </PageContainer>
   );
+}
+
+function formatCPF(cpf) {
+  cpf = cpf.replace(/\D/g, "");
+  cpf = cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+  return cpf;
 }
 
 const PageContainer = styled.div`
@@ -97,7 +104,6 @@ const TextContainer = styled.div`
     font-weight: bold;
     margin-bottom: 10px;
     letter-spacing: 0.04em;
-
   }
   p {
     margin-bottom: -20px;
