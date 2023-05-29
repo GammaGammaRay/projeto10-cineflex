@@ -1,36 +1,73 @@
 import React from "react";
 import styled from "styled-components";
+import { useState, useEffect } from "react";
 
-function Seat({ name, isAvailable }) {
-  return <SeatItem isAvailable={isAvailable}>{name}</SeatItem>;
+function Seat({
+  name,
+  id,
+  isAvailable,
+  isSelected,
+  setSelectedSeats,
+}) {
+  const handleSeatClick = () => {
+    if (isAvailable) {
+      setSelectedSeats(id);
+    }
+  };
+
+  return (
+    <SeatItem
+      isAvailable={isAvailable}
+      onClick={handleSeatClick}
+      isSelected={isSelected}
+    >
+      {name}
+    </SeatItem>
+  );
 }
 
 function Seats({ seats }) {
+  const [selectedSeats, setSelectedSeats] = useState([]);
   const { id, name, isAvailable } = seats;
-  console.log("seats: ", seats);
+  console.log("SelectedSeats: ", selectedSeats);
+
+  useEffect(() => {
+    setSelectedSeats([]);
+  }, []);
+
+  const handleSeatSelection = (seatId) => {
+    if (selectedSeats.includes(seatId)) {
+      setSelectedSeats(selectedSeats.filter((id) => id !== seatId));
+    } else {
+      setSelectedSeats([...selectedSeats, seatId]);
+    }
+  };
+
   return (
     <>
       <SeatsContainer>
-        {seats.map((seat) => (
-          <Seat key={seat.id} name={seat.name} isAvailable={seat.isAvailable} />
+        {seats.map(({ id, name, isAvailable }) => (
+          <Seat
+            key={id}
+            id={id}
+            name={name}
+            isAvailable={isAvailable}
+            setSelectedSeats={handleSeatSelection}
+            isSelected={selectedSeats.includes(id)}
+          />
         ))}
-        {/* <SeatItem>01</SeatItem>
-        <SeatItem>02</SeatItem>
-        <SeatItem>03</SeatItem>
-        <SeatItem>04</SeatItem>
-        <SeatItem>05</SeatItem> */}
       </SeatsContainer>
       <CaptionContainer>
         <CaptionItem>
-          <CaptionCircle />
+          <CaptionCircle isSelected={true} />
           Selecionado
         </CaptionItem>
         <CaptionItem>
-          <CaptionCircle />
+          <CaptionCircle isAvailable={true} />
           Disponível
         </CaptionItem>
         <CaptionItem>
-          <CaptionCircle />
+          <CaptionCircle isAvailable={false} />
           Indisponível
         </CaptionItem>
       </CaptionContainer>
@@ -41,9 +78,11 @@ function Seats({ seats }) {
 export default Seats;
 
 const SeatItem = styled.div`
-  border: 1px solid ${({ isAvailable }) => (isAvailable ? "blue" : "red")};
-  background-color: ${({ isAvailable }) =>
-    isAvailable ? "lightblue" : "lightgray"};
+  background-color: ${({ isSelected, isAvailable }) =>
+    isSelected ? "#1AAE9E" : isAvailable ? "#C3CFD9" : "#FBE192"};
+  border: 1px solid
+    ${({ isSelected, isAvailable }) =>
+      isSelected ? "#0E7D71" : isAvailable ? "#808F9D" : "#F7C52B"};
 
   height: 25px;
   width: 25px;
@@ -54,6 +93,7 @@ const SeatItem = styled.div`
   align-items: center;
   justify-content: center;
   margin: 5px 3px;
+  user-select: none
 `;
 
 const SeatsContainer = styled.div`
@@ -73,8 +113,11 @@ const CaptionContainer = styled.div`
   margin: 20px;
 `;
 const CaptionCircle = styled.div`
-  border: 1px solid blue; // Essa cor deve mudar
-  background-color: lightblue; // Essa cor deve mudar
+  background-color: ${({ isSelected, isAvailable }) =>
+    isSelected ? "#1AAE9E" : isAvailable ? "#C3CFD9" : "#FBE192"};
+  border: 1px solid
+    ${({ isSelected, isAvailable }) =>
+      isSelected ? "#0E7D71" : isAvailable ? "#808F9D" : "#F7C52B"};
   height: 25px;
   width: 25px;
   border-radius: 25px;

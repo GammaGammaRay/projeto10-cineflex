@@ -33,7 +33,6 @@ export default function SeatsPage() {
     <PageContainer>
       Selecione o(s) assento(s)
       {seats.seats && <Seats seats={seats.seats} />}
-
       <FormContainer>
         Nome do Comprador:
         <input placeholder="Digite seu nome..." />
@@ -42,7 +41,7 @@ export default function SeatsPage() {
         <button>Reservar Assento(s)</button>
       </FormContainer>
       {/* <Footer poster={seats.movie.posterURL} title={seats.movie.title}></Footer> */}
-      <FooterContainer>
+      {seats.seats && <FooterContainer>
         <div>
           <img
             src={
@@ -52,10 +51,12 @@ export default function SeatsPage() {
           />
         </div>
         <div>
-          <p>Tudo em todo lugar ao mesmo tempo</p>
-          <p>Sexta - 14h00</p>
+          <p>{seats.movie.title}</p>
+          <p>
+            {seats.day.weekday} - {seats.name}
+          </p>
         </div>
-      </FooterContainer>
+      </FooterContainer>}
     </PageContainer>
   );
 }
@@ -78,16 +79,24 @@ const FormContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin: 20px 0;
+  /* margin: 20px 0; */
   font-size: 18px;
   button {
     align-self: center;
+    background-color: #e8833a;
+    border-radius: 3px;
+    width: 225px;
+    height: 42px;
+    border: none;
+    color: white;
+    margin-top: 10px;
   }
   input {
-    width: calc(100vw - 60px);
+    width: calc(100vw - 150px);
+    height: 50px;
+    border: 1px solid #D5D5D5;
   }
 `;
-
 
 const FooterContainer = styled.div`
   width: 100%;

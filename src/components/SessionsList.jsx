@@ -21,8 +21,8 @@ function SessionsOnDate({ day }) {
       {weekday} - {date}
       <ButtonsContainer>
         {showtimes.map((time) => (
-          <Link to={`/seats/${time.id}`} sessionId={time.id}>
-            <button key={time.id}>{time.name}</button>
+          <Link to={`/seats/${time.id}`}  key={time.id}>
+            <button >{time.name}</button>
           </Link>
         ))}
       </ButtonsContainer>
