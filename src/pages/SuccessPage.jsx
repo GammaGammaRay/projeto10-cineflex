@@ -1,10 +1,16 @@
 import React from "react";
 import styled from "styled-components";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function SuccessPage() {
   const location = useLocation();
+  const navigate = useNavigate();
   const { name, cpf, title, time, date, reservedSeats } = location.state;
+
+  const refresh = () => {
+    navigate("/");
+    location.state = null;
+  };
 
   return (
     <PageContainer>
@@ -12,7 +18,7 @@ export default function SuccessPage() {
         Pedido feito <br /> com sucesso!
       </h1>
 
-      <TextContainer>
+      <TextContainer data-test="movie-info">
         <strong>
           <p>Filme e sessão</p>
         </strong>
@@ -22,7 +28,7 @@ export default function SuccessPage() {
         </p>
       </TextContainer>
 
-      <TextContainer>
+      <TextContainer data-test="seats-info">
         <strong>
           <p>Ingressos</p>
         </strong>
@@ -32,7 +38,7 @@ export default function SuccessPage() {
         
       </TextContainer>
 
-      <TextContainer>
+      <TextContainer data-test="client-info">
         <strong>
           <p>Comprador</p>
         </strong>
@@ -40,7 +46,7 @@ export default function SuccessPage() {
         <p>CPF: {cpf}</p>
       </TextContainer>
 
-      <button>Voltar para Home</button>
+      <button onClick={refresh} data-test="go-home-btn">Voltar para Home</button>
     </PageContainer>
   );
 }

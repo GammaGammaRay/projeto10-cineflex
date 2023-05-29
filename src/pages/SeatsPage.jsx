@@ -57,7 +57,7 @@ export default function SeatsPage() {
 
   function reservationSuccess() {
     console.log("Reservation Successful");
-    console.log({seatNumbers});
+    console.log({ seatNumbers });
     navigate("/success", {
       state: {
         name: buyerName,
@@ -65,7 +65,7 @@ export default function SeatsPage() {
         title: seats.movie.title,
         time: seats.name,
         date: seats.day.date,
-        reservedSeats: seatNumbers
+        reservedSeats: seatNumbers,
       },
     });
   }
@@ -115,15 +115,22 @@ export default function SeatsPage() {
       <FormContainer>
         <p>Nome do Comprador:</p>
         <input
+          data-test="client-name"
           onChange={handleBuyerNameChange}
           placeholder="Digite seu nome..."
         />
         <p>CPF do Comprador:</p>
-        <input onChange={handleCpfChange} placeholder="Digite seu CPF..." />
-        <button onClick={submitForm}>Reservar Assento(s)</button>
+        <input
+          data-test="client-cpf"
+          onChange={handleCpfChange}
+          placeholder="Digite seu CPF..."
+        />
+        <button data-test="book-seat-btn" onClick={submitForm}>
+          Reservar Assento(s)
+        </button>
       </FormContainer>
       {seats.seats && (
-        <FooterContainer>
+        <FooterContainer data-test="footer">
           <div>
             <img src={`${seats.movie.posterURL}`} alt="poster" />
           </div>
@@ -204,9 +211,12 @@ const FooterContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  font-size: 20px;
+  font-size: 26px;
+  line-height: 30px;
+  color: #293845;
   position: fixed;
   bottom: 0;
+  line-height: 0;
 
   div:nth-child(1) {
     box-shadow: 0px 2px 4px 2px #0000001a;

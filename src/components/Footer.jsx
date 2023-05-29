@@ -1,18 +1,17 @@
 import React from "react";
 import styled from "styled-components";
 
-function Footer({poster, title}) {
-  return (<FooterDiv data-test="footer">
-    <div>
-          <img
-            src={poster}
-            alt="poster"
-          />
-        </div>
-        <div>
-          <p>{title}</p>
-        </div>
-  </FooterDiv>);
+function Footer({ poster, title }) {
+  return (
+    <FooterDiv data-test="footer">
+      <div>
+        <img src={poster} alt="poster" />
+      </div>
+      <div>
+        <p>{title}</p>
+      </div>
+    </FooterDiv>
+  );
 }
 
 export default Footer;
@@ -21,15 +20,17 @@ const FooterDiv = styled.div`
   width: 100%;
   height: 120px;
   background-color: #c3cfd9;
-  
+
   display: flex;
   justify-content: center;
   flex-direction: row;
   align-items: center;
-  font-size: 20px;
+  font-size: 26px;
+  line-height: 0;
+  color: #293845;
   position: fixed;
   bottom: 0;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 
   div:nth-child(1) {
     box-shadow: 0px 2px 4px 2px #0000001a;
@@ -56,4 +57,4 @@ const FooterDiv = styled.div`
       }
     }
   }
-  `
+`;

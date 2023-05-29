@@ -1,24 +1,18 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 
-function Seat({
-  name,
-  id,
-  isAvailable,
-  isSelected,
-  setSelectedSeats,
-}) {
+function Seat({ name, id, isAvailable, isSelected, setSelectedSeats }) {
   const handleSeatClick = () => {
-    if(!isAvailable) {
-      alert("Esse assento não está disponível")
-    }
-    else {
+    if (!isAvailable) {
+      alert("Esse assento não está disponível");
+    } else {
       setSelectedSeats(id, name);
     }
   };
 
   return (
     <SeatItem
+      data-test="seat"
       isAvailable={isAvailable}
       onClick={handleSeatClick}
       isSelected={isSelected}
@@ -54,7 +48,6 @@ function Seats({
       setSeatNumbers([...seatNumbers, seatNumber]);
     }
   };
-
 
   return (
     <>
