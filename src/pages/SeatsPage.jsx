@@ -78,13 +78,13 @@ export default function SeatsPage() {
     }
   }
 
-  const handleBuyerNameChange = (e) => {
-    setBuyerName(e.target.value);
-  };
+  // const handleBuyerNameChange = (e) => {
+  //   setBuyerName(e.target.value);
+  // };
 
-  const handleCpfChange = (e) => {
-    setBuyerCpf(e.target.value);
-  };
+  // const handleCpfChange = (e) => {
+  //   setBuyerCpf(e.target.value);
+  // };
 
   const submitForm = () => {
     if (!isValidName(buyerName)) {
@@ -116,13 +116,15 @@ export default function SeatsPage() {
         <p>Nome do Comprador:</p>
         <input
           data-test="client-name"
-          onChange={handleBuyerNameChange}
+          onChange={(ev) => setBuyerName(ev.target.value)}
+          value={buyerName}
           placeholder="Digite seu nome..."
-        />
+          />
         <p>CPF do Comprador:</p>
         <input
+          value={buyerCpf}
+          onChange={(ev) => setBuyerCpf(ev.target.value)}
           data-test="client-cpf"
-          onChange={handleCpfChange}
           placeholder="Digite seu CPF..."
         />
         <button data-test="book-seat-btn" onClick={submitForm}>
