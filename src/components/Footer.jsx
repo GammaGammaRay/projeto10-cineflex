@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 function Footer({poster, title}) {
-  return (<FooterDiv>
+  return (<FooterDiv data-test="footer">
     <div>
           <img
             src={poster}

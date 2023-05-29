@@ -17,12 +17,12 @@ export default SessionsList;
 function SessionsOnDate({ day }) {
   const { weekday, date, showtimes } = day;
   return (
-    <SessionContainer>
+    <SessionContainer data-test="movie-day">
       {weekday} - {date}
       <ButtonsContainer>
         {showtimes.map((time) => (
-          <Link to={`/seats/${time.id}`}  key={time.id}>
-            <button >{time.name}</button>
+          <Link to={`/seats/${time.id}`}  key={time.id} >
+            <button data-test="showtime">{time.name}</button>
           </Link>
         ))}
       </ButtonsContainer>

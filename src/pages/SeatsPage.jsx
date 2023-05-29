@@ -1,16 +1,15 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Seats from "../components/Seats";
 
 export default function SeatsPage() {
   const [seats, setSeats] = useState([]);
   const [selectedSeats, setSelectedSeats] = useState([]);
-  const [seatNumbers, setSeatNumbers] = useState([])
+  const [seatNumbers, setSeatNumbers] = useState([]);
   const [buyerCpf, setBuyerCpf] = useState(null);
   const [buyerName, setBuyerName] = useState(null);
-  // const [success, setSuccess] = useState(false);
 
   const { sessionId } = useParams();
 
@@ -35,19 +34,16 @@ export default function SeatsPage() {
       });
   }
 
-
-
-
   // POST SEATS
   function postData() {
     const data = {
-      ids: selectedSeats, 
+      ids: selectedSeats,
       name: buyerName,
       cpf: buyerCpf,
     };
-  
+
     console.log(data);
-  
+
     axios
       .post(
         "https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many",
@@ -57,17 +53,29 @@ export default function SeatsPage() {
       .catch(reservationError);
   }
 
+  const navigate = useNavigate();
+
   function reservationSuccess() {
     console.log("Reservation Successful");
-    const data = {
-
-    }
-    window.location.href = "/success";
-    // setSuccess(true)
+    console.log({seatNumbers});
+    navigate("/success", {
+      state: {
+        name: buyerName,
+        cpf: buyerCpf,
+        title: seats.movie.title,
+        time: seats.name,
+        date: seats.day.date,
+        reservedSeats: seatNumbers
+      },
+    });
   }
 
   function reservationError(error) {
-    console.log("Error: " + error.response.status);
+    if (error.response) {
+      console.log("Error: " + error.response.status);
+    } else {
+      console.log("Error: Unknown");
+    }
   }
 
   const handleBuyerNameChange = (e) => {
