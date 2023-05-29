@@ -1,17 +1,13 @@
 import React from "react";
 import styled from "styled-components";
-import { useState, useEffect } from "react";
 
-function Seat({
-  name,
-  id,
-  isAvailable,
-  isSelected,
-  setSelectedSeats,
-}) {
+function Seat({ name, id, isAvailable, isSelected, setSelectedSeats }) {
   const handleSeatClick = () => {
     if (isAvailable) {
       setSelectedSeats(id);
+    }
+    if (isSelected) {
+      !isSelected;
     }
   };
 
@@ -26,15 +22,14 @@ function Seat({
   );
 }
 
-function Seats({ seats }) {
-  const [selectedSeats, setSelectedSeats] = useState([]);
-  const { id, name, isAvailable } = seats;
-  console.log("SelectedSeats: ", selectedSeats);
-
-  useEffect(() => {
-    setSelectedSeats([]);
-  }, []);
-
+function Seats({
+  seats,
+  name,
+  selectedSeats,
+  setSelectedSeats,
+  setSelectedSeatNumbers,
+  selectedSeatNumbers,
+}) {
   const handleSeatSelection = (seatId) => {
     if (selectedSeats.includes(seatId)) {
       setSelectedSeats(selectedSeats.filter((id) => id !== seatId));
@@ -54,6 +49,7 @@ function Seats({ seats }) {
             isAvailable={isAvailable}
             setSelectedSeats={handleSeatSelection}
             isSelected={selectedSeats.includes(id)}
+            setSelectedSeatNumbers={setSelectedSeatNumbers}
           />
         ))}
       </SeatsContainer>
@@ -93,7 +89,7 @@ const SeatItem = styled.div`
   align-items: center;
   justify-content: center;
   margin: 5px 3px;
-  user-select: none
+  user-select: none;
 `;
 
 const SeatsContainer = styled.div`

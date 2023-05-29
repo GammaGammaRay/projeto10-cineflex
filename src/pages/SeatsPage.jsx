@@ -1,15 +1,20 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import Seats from "../components/Seats";
-import Footer from "../components/Footer";
 
 export default function SeatsPage() {
   const [seats, setSeats] = useState([]);
-  const [isAvailable, setIsAvailable] = useState([]);
-  const { sessionId } = useParams(); // Update this line to use useParams()
+  const [selectedSeats, setSelectedSeats] = useState([]);
+  const [selectedSeatNumbers, setSelectedSeatNumbers] = useState([])
+  const [buyerCpf, setBuyerCpf] = useState(null);
+  const [buyerName, setBuyerName] = useState(null);
+  // const [success, setSuccess] = useState(false);
 
+  const { sessionId } = useParams();
+
+  // GET SEATS
   useEffect(() => {
     getSeats();
   }, []);
@@ -29,37 +34,113 @@ export default function SeatsPage() {
         console.log(error.response.data);
       });
   }
+
+  // POST SEATS
+  function postData() {
+    const data = {
+      ids: { selectedSeats },
+      name: { buyerName },
+      cpf: { buyerCpf },
+    };
+
+    console.log(data);
+
+    const response = axios.post(
+      "https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many",
+      data
+    );
+
+    response.then(reservationSuccess);
+    response.catch(reservationError);
+  }
+
+  function reservationSuccess() {
+    console.log("Reservation Successful");
+    const data = {
+
+    }
+    window.location.href = "/success";
+    // setSuccess(true)
+  }
+
+  function reservationError(error) {
+    console.log("Error: " + error.response.status);
+  }
+
+  const handleBuyerNameChange = (e) => {
+    setBuyerName(e.target.value);
+  };
+
+  const handleCpfChange = (e) => {
+    setBuyerCpf(e.target.value);
+  };
+
+  const submitForm = () => {
+    if (!isValidName(buyerName)) {
+      alert("Por favor digite seu nome completo");
+      return;
+    }
+    if (!isValidCPF(buyerCpf)) {
+      alert("Por favor digite seu cpf, usando o formato xxx.xxx.xxx-xx");
+      return;
+    } else {
+      postData();
+    }
+  };
+
+  // RENDER
   return (
     <PageContainer>
       Selecione o(s) assento(s)
-      {seats.seats && <Seats seats={seats.seats} />}
+      {seats.seats && (
+        <Seats
+          seats={seats.seats}
+          selectedSeats={selectedSeats}
+          setSelectedSeats={setSelectedSeats}
+          selectedSeatNumbers={selectedSeatNumbers}
+          setSelectedSeatNumbers={setSelectedSeatNumbers}
+        />
+      )}
       <FormContainer>
-        Nome do Comprador:
-        <input placeholder="Digite seu nome..." />
-        CPF do Comprador:
-        <input placeholder="Digite seu CPF..." />
-        <button>Reservar Assento(s)</button>
+        <p>Nome do Comprador:</p>
+        <input
+          onChange={handleBuyerNameChange}
+          placeholder="Digite seu nome..."
+        />
+        <p>CPF do Comprador:</p>
+        <input onChange={handleCpfChange} placeholder="Digite seu CPF..." />
+        <button onClick={submitForm}>Reservar Assento(s)</button>
       </FormContainer>
-      {/* <Footer poster={seats.movie.posterURL} title={seats.movie.title}></Footer> */}
-      {seats.seats && <FooterContainer>
-        <div>
-          <img
-            src={
-              "https://br.web.img2.acsta.net/pictures/22/05/16/17/59/5165498.jpg"
-            }
-            alt="poster"
-          />
-        </div>
-        <div>
-          <p>{seats.movie.title}</p>
-          <p>
-            {seats.day.weekday} - {seats.name}
-          </p>
-        </div>
-      </FooterContainer>}
+      {seats.seats && (
+        <FooterContainer>
+          <div>
+            <img src={`${seats.movie.posterURL}`} alt="poster" />
+          </div>
+          <div>
+            <p>{seats.movie.title}</p>
+            <p>
+              {seats.day.weekday} - {seats.name}
+            </p>
+          </div>
+        </FooterContainer>
+      )}
     </PageContainer>
   );
 }
+
+// INPUT VALIDATION
+
+function isValidName(name) {
+  const pattern = /^([a-zA-Z]+)\s+([a-zA-Z]+(\s+[a-zA-Z]+)*)$/;
+  return pattern.test(name);
+}
+
+function isValidCPF(cpf) {
+  const pattern = /^\d{3}\.\d{3}\.\d{3}-\d{2}$/;
+  return pattern.test(cpf);
+}
+
+// STYLED COMPONENTS
 
 const PageContainer = styled.div`
   display: flex;
@@ -79,8 +160,8 @@ const FormContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  /* margin: 20px 0; */
   font-size: 18px;
+  line-height: 0.5;
   button {
     align-self: center;
     background-color: #e8833a;
@@ -89,12 +170,19 @@ const FormContainer = styled.div`
     height: 42px;
     border: none;
     color: white;
-    margin-top: 10px;
+    margin-top: 30px;
   }
   input {
     width: calc(100vw - 150px);
     height: 50px;
-    border: 1px solid #D5D5D5;
+    border: 1px solid #d5d5d5;
+    font-weight: 400;
+    font-size: 18px;
+
+    ::placeholder {
+      color: #afafaf;
+      font-style: italic;
+    }
   }
 `;
 
